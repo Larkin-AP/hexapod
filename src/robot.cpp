@@ -96,7 +96,7 @@ namespace robot
 	}
 	auto HexDynamicForwardTest::executeRT()->int
 	{
-        //if (count() == 1)this->master()->logFileRawName("eeTraj");
+        if (count() == 1)this->master()->logFileRawName("eeTraj");
         //if (count() == 1)this->master()->logFileRawName("inputTraj");
         //if (count() == 1)this->master()->logFileRawName("invInput");
         //if (count() == 1)this->master()->logFileRawName("numInput");
