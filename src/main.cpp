@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	auto& adams = dynamic_cast<aris::dynamic::AdamsSimulator&>(cs.model().simulatorPool().front());
 	//adams.saveAdams("C:\\Users\\jpche\\Desktop\\aaa\\hexapod_simulation.cmd"); //这个只是导入模型
 
-	//robot::HexDynamicForwardTest plan;
+	robot::HexDynamicForwardTest plan;
 	//robot::HexDynamicBackTest plan;
 	//robot::HexDynamicRightTest plan;
 	//robot::HexDynamicLeftTest plan;
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	//robot::HexDynamicTurnLeftTest plan;
 	//robot::HexDynamicTetrapodTest plan;
 	//adams.simulate(plan, cs.model().simResultPool().front());
-	//adams.saveAdams("C:\\Users\\jpche\\Desktop\\aaa\\hexapod_simulation_with_control.cmd", cs.model().simResultPool().front());
+	//adams.saveAdams("C:\\Users\\jpche\\Desktop\\aaa\\hexapod_simulation_with_control.cmd", cs.model().simResultPool().front()); //这个模型还含有运动参数
 
 	//std::cout << "simulate finished" << std::endl;
 

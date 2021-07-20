@@ -96,8 +96,8 @@ namespace robot
 	}
 	auto HexDynamicForwardTest::executeRT()->int
 	{
-        if (count() == 1)this->master()->logFileRawName("eeTraj");
-        //if (count() == 1)this->master()->logFileRawName("inputTraj");
+        //if (count() == 1)this->master()->logFileRawName("eeTraj");
+        if (count() == 1)this->master()->logFileRawName("inputTraj");
         //if (count() == 1)this->master()->logFileRawName("invInput");
         //if (count() == 1)this->master()->logFileRawName("numInput");
 
@@ -131,13 +131,15 @@ namespace robot
             ret = tripodPlan(5, count() - 1-a, &e1, input_angle);
             aris::dynamic::s_vc(16, file_current_body + 0, ee + 0);
             aris::dynamic::s_vc(18, file_current_leg + 0, ee + 16);
+            //末端位置
             //for (int i = 0; i < 34; ++i)
             //    lout() << ee[i] << "\t";
             //lout() << std::endl;
 
-            //for (int i = 0; i < 18; ++i)
-            //    lout() << input_angle[i] << "\t";
-            //lout() << std::endl;
+            //解析解计算得到的输入的角度
+            for (int i = 0; i < 18; ++i)
+                lout() << input_angle[i] << "\t";
+            lout() << std::endl;
 
             model()->setOutputPos(ee);
             
@@ -149,6 +151,7 @@ namespace robot
                 //}
                 std::cout << "ret = " << ret << std::endl;
             }
+            //数值解计算得到的输入的角度
             //double input[18];
             //model()->getInputPos(input);
             //for (int i = 0; i < 18; ++i)
