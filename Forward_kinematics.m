@@ -44,31 +44,33 @@ Bx=LM;
 By=B_0y+mot_pos(2);
 AH=sqrt(Hx^2+Hy^2);
 angle_AHG=acos((AH^2+GH^2-AG^2)/(2*AH*GH));
-if (Hx<0)
-    angle_AHK=atan(abs(Hy/Hx));
-elseif (Hx>0)
-    angle_AHK=pi-atan(abs(Hy/Hx));
-else
-    angle_AHK=pi/2;
-end
-angle_GHK=angle_AHK-angle_AHG;
-HK=GH*cos(angle_GHK);
-GK=GH*sin(angle_GHK);
+% if (Hx<0)
+%     angle_AHK=atan(abs(Hy/Hx));
+% elseif (Hx>0)
+%     angle_AHK=pi-atan(abs(Hy/Hx));
+% else
+%     angle_AHK=pi/2;
+% end
+angle_AHK=atan2(-Hy,Hx);
+angle_GHR=pi-angle_AHK-angle_AHG;
+HK=GH*cos(angle_GHR);
+GK=GH*sin(angle_GHR);
 Gx=Hx+HK;
 Gy=Hy+GK;
 vector_AG=[Gx,Gy];
-if (Bx>Gx)
-    angle_BGR=atan(abs((By-Gy)/(Bx-Gx)));
-elseif (Bx<Gx)
-    angle_BGR=pi-atan(abs((By-Gy)/(Bx-Gx)));
-else
-    angle_BGR=pi/2;
-end
+% if (Bx>Gx)
+%     angle_BGR=atan(abs((By-Gy)/(Bx-Gx)));
+% elseif (Bx<Gx)
+%     angle_BGR=pi-atan(abs((By-Gy)/(Bx-Gx)));
+% else
+%     angle_BGR=pi/2;
+% end
+angle_BGT=atan2(By-Gy,Bx-Gx);
 BG=sqrt((Bx-Gx)^2+(By-Gy)^2);
 angle_BGF=acos((BG^2+GF^2-BF^2)/(2*BG*GF));
-angle_FGR=angle_BGR-angle_BGF;
-FR=GF*sin(angle_FGR);
-GR=GF*cos(angle_FGR);
+angle_FGT=angle_BGT-angle_BGF;
+FR=GF*sin(angle_FGT);
+GR=GF*cos(angle_FGT);
 Fx=Gx+GR;
 Fy=Gy+FR;
 vector_GF=[Fx-Gx,Fy-Gy];
