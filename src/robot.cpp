@@ -96,10 +96,10 @@ namespace robot
 	}
 	auto HexDynamicForwardTest::executeRT()->int
 	{
-        //if (count() == 1)this->master()->logFileRawName("eeTraj");
-        if (count() == 1)this->master()->logFileRawName("inputTraj");
-        //if (count() == 1)this->master()->logFileRawName("invInput");
-        //if (count() == 1)this->master()->logFileRawName("numInput");
+  //      //if (count() == 1)this->master()->logFileRawName("eeTraj");
+  //      //if (count() == 1)this->master()->logFileRawName("inputTraj");
+  //      //if (count() == 1)this->master()->logFileRawName("invInput");
+  //      //if (count() == 1)this->master()->logFileRawName("numInput");
 
 		int ret = 0,a=500;
         //末端为六个末端的三个坐标和身体的位姿矩阵 3*6+16=34
@@ -124,7 +124,7 @@ namespace robot
         {
             TCurve s1(1, 1);
             s1.getCurveParam();
-            EllipseTrajectory e1(0.15, 0.05, 0, s1);
+            EllipseTrajectory e1(0.1, 0.03, 0, s1);
             BodyPose body_s(0, 0, 0, s1);
            
             
@@ -137,9 +137,9 @@ namespace robot
             //lout() << std::endl;
 
             //解析解计算得到的输入的角度
-            for (int i = 0; i < 18; ++i)
-                lout() << input_angle[i] << "\t";
-            lout() << std::endl;
+            //for (int i = 0; i < 18; ++i)
+            //    lout() << input_angle[i] << "\t";
+            //lout() << std::endl;
 
             model()->setOutputPos(ee);
             
@@ -162,8 +162,10 @@ namespace robot
            
               
             if (ret == 0) std::cout << count() << std::endl;
-            return ret;
+            
         }
+        return ret;
+    
 	}
     HexDynamicForwardTest::HexDynamicForwardTest(const std::string& name)
     {
@@ -186,7 +188,7 @@ namespace robot
         static double ee0[34];
         double ee[34];
 
-        {
+        
             TCurve s1(5, 2);
             s1.getCurveParam();
             EllipseTrajectory e1(-0.15,0.05, 0, s1);
@@ -220,7 +222,7 @@ namespace robot
                 //    std::cout << s1.getTc() * 1000 << std::endl;
                 if (ret == 0) std::cout << count() << std::endl;
             return ret;
-        }
+        
     }
     HexDynamicBackTest::HexDynamicBackTest(const std::string& name)
     {

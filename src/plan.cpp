@@ -93,7 +93,7 @@ auto EllipseTrajectory::getEllipseTrajectory(int count)->void
 //生成身体绕xyz三轴旋转的角度轨迹0->theta  角度为弧度
 auto BodyPose::getBodyRotationTrajectory(int count)->void
 {
-	pitch_ = pitch_angle_z_ * PI * b_r_s_.getTCurve(count) / 180.0;  //pitch  弧度 并按照梯形曲线生成
+	pitch_ = pitch_angle_z_ * PI * b_r_s_.getTCurve(count) / 180.0;  //pitch  转化为弧度 并按照梯形曲线生成
 	roll_ = roll_angle_x_ * PI * b_r_s_.getTCurve(count) / 180.0;
 	yaw_ = yaw_angle_y_ * PI * b_r_s_.getTCurve(count) / 180.0;
 
@@ -257,7 +257,6 @@ auto planLegTripodTurn(int e_1, double* current_leg, int count, EllipseTrajector
 		temp_xyz_in_ground[14] = foot_position_start_point[14] + Ellipse->get_z();
 
 		aris::dynamic::s_pp2pp(R_y, temp_xyz_in_ground + 0 * 3, current_leg + 0 * 3);
-		aris::dynamic::s_pp2pp(R_y, temp_xyz_in_ground + 2 * 3, current_leg + 2 * 3);
 		aris::dynamic::s_pp2pp(R_y, temp_xyz_in_ground + 4 * 3, current_leg + 4 * 3);
 
 	}
@@ -503,7 +502,7 @@ auto planBodyTurn(int count, double* current_body, BodyPose* body_pose_param)->v
 			current_body[i] = body_position_start_point[i];
 		}
 	}
-	body_pose_param->getBodyRotationTrajectory(count);
+	body_pose_param->getBodyRotationTrajectory(count); //由body设置的角度参数得到弧度制的旋转角（随时间）
 
 	yaw = body_pose_param->getCurrentYaw() / 2;
 
@@ -516,11 +515,11 @@ auto planBodyTurn(int count, double* current_body, BodyPose* body_pose_param)->v
 
 	double tempy[16] = { 0 };
 
-	aris::dynamic::s_pm_dot_pm(body_position_start_point, R_y, tempy); //这个地方是右乘吗
-	std::copy(tempy, tempy + 16, current_body);
+	aris::dynamic::s_pm_dot_pm(body_position_start_point, R_y, tempy); //矩阵相乘。tempy得到的是旋转后的身体位姿
+	std::copy(tempy, tempy + 16, current_body); //copy（拷贝内容的首地址，尾地址，拷贝目的地的首地址） 得到current_body
 
 	//结束时保存变化之后的值
-	if (count + 1 == std::floor(body_pose_param->getTcurve().getTc() * 1000))
+	if (count + 1 == std::floor(body_pose_param->getTcurve().getTc() * 1000)) //std::floor 向下取整数
 	{
 
 		for (int i = 0; i < 16; i++)

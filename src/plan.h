@@ -18,7 +18,7 @@ private:
 	double a_;
 	double ta_;
 public:
-	auto getTCurve(int count)->double; //输入count,输出s
+	auto getTCurve(int count)->double; //输入count,输出s=0->1
 	auto getCurveParam()->void; //根据用户输入的v,a,计算Tc，ta
 	auto getTc()->double { return Tc_; };
 	TCurve(double a, double v) { a_ = a; v_ = v; } //这是构造函数初始化的写法之一
@@ -107,7 +107,8 @@ public:
 	auto getPitchTotalAngle()->double { return pitch_angle_z_; };
 	auto getYawTotalAngle()->double { return yaw_angle_y_; };
 	auto getTcurve()->TCurve { return b_r_s_; };
-	BodyPose(double roll, double yaw, double pitch, TCurve s) : roll_angle_x_(roll), yaw_angle_y_(yaw), pitch_angle_z_(pitch), b_r_s_(s), pitch_(0), yaw_(0), roll_(0) {}
+	//构造函数初始化列表方式
+	BodyPose(double roll, double yaw, double pitch, TCurve s) : roll_angle_x_(roll), yaw_angle_y_(yaw), pitch_angle_z_(pitch), b_r_s_(s), pitch_(0), yaw_(0), roll_(0) {} 
 	~BodyPose() {};
 };
 
